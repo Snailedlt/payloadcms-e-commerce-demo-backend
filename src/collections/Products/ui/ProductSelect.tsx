@@ -1,13 +1,13 @@
 import { Select, useFormFields, useWatchForm } from 'payload/components/forms'
 import * as React from 'react'
-import { TextField } from 'payload/dist/fields/config/types';
-import CopyToClipboard from 'payload/dist/admin/components/elements/CopyToClipboard';
+import { TextField } from 'payload/dist/fields/config/types'
+import CopyToClipboard from 'payload/dist/admin/components/elements/CopyToClipboard'
 
-export const ProductSelect: React.FC<TextField> = (props) => {
+export const ProductSelect: React.FC<TextField> = props => {
   const { name, label } = props
   const [options, setOptions] = React.useState([])
 
-  const { value: stripeProductID } = useFormFields(([fields]) => fields[name]);
+  const { value: stripeProductID } = useFormFields(([fields]) => fields[name])
 
   React.useEffect(() => {
     const getStripeProducts = async () => {
@@ -19,9 +19,11 @@ export const ProductSelect: React.FC<TextField> = (props) => {
         },
         body: JSON.stringify({
           stripeMethod: 'products.list',
-          stripeArgs: [{
-            limit: 100,
-          }]
+          stripeArgs: [
+            {
+              limit: 100,
+            },
+          ],
         }),
       })
 
@@ -56,13 +58,11 @@ export const ProductSelect: React.FC<TextField> = (props) => {
 
   return (
     <div>
-      <p style={{marginBottom: '0'}}>
-        {typeof label === 'string' ? label : 'Product'}
-      </p>
+      <p style={{ marginBottom: '0' }}>{typeof label === 'string' ? label : 'Product'}</p>
       <p
         style={{
           marginBottom: '0.75rem',
-          color: 'var(--theme-elevation-400)'
+          color: 'var(--theme-elevation-400)',
         }}
       >
         {`Select the related Stripe product or `}
@@ -72,15 +72,11 @@ export const ProductSelect: React.FC<TextField> = (props) => {
           rel="noopener noreferrer"
           style={{ color: 'var(--theme-text' }}
         >
-            create a new one
-          </a>
+          create a new one
+        </a>
         {'.'}
       </p>
-      <Select
-        {...props}
-        label=""
-        options={options}
-      />
+      <Select {...props} label="" options={options} />
       {stripeProductID && (
         <div
           style={{
@@ -92,20 +88,20 @@ export const ProductSelect: React.FC<TextField> = (props) => {
             <span
               className="label"
               style={{
-                color: '#9A9A9A'
+                color: '#9A9A9A',
               }}
             >
-              {`Manage "${options.find((option) => option.value === stripeProductID)?.label}" in Stripe`}
+              {`Manage "${
+                options.find(option => option.value === stripeProductID)?.label
+              }" in Stripe`}
             </span>
-            <CopyToClipboard
-              value={href}
-            />
+            <CopyToClipboard value={href} />
           </div>
           <div
             style={{
               overflow: 'hidden',
               textOverflow: 'ellipsis',
-              fontWeight: '600'
+              fontWeight: '600',
             }}
           >
             <a

@@ -1,8 +1,8 @@
-import React from 'react';
-import { useWatchForm } from 'payload/components/forms';
-import { UIField } from 'payload/dist/fields/config/types';
-import { Fields } from 'payload/dist/admin/components/forms/Form/types';
-import CopyToClipboard from 'payload/dist/admin/components/elements/CopyToClipboard';
+import React from 'react'
+import { useWatchForm } from 'payload/components/forms'
+import { UIField } from 'payload/dist/fields/config/types'
+import { Fields } from 'payload/dist/admin/components/forms/Form/types'
+import CopyToClipboard from 'payload/dist/admin/components/elements/CopyToClipboard'
 
 type FieldsWithStripeID = Fields & {
   stripeID: {
@@ -10,28 +10,30 @@ type FieldsWithStripeID = Fields & {
   }
 }
 
-export const StripeLink: React.FC<UIField & {
-  isTestKey: boolean
-  stripeResourceType: string
-  path: string
-  nameOfIDField: string
-}> = (props) => {
+export const StripeLink: React.FC<
+  UIField & {
+    isTestKey: boolean
+    stripeResourceType: string
+    path: string
+    nameOfIDField: string
+  }
+> = props => {
   const {
     isTestKey, // TODO: this is 'undefined'
     stripeResourceType,
     path,
-    nameOfIDField
-  } = props;
+    nameOfIDField,
+  } = props
 
-  const form = useWatchForm();
-  const fields = form.fields as FieldsWithStripeID;
+  const form = useWatchForm()
+  const fields = form.fields as FieldsWithStripeID
 
-  const stripeID = fields[`${path}.${nameOfIDField}`]?.value;
+  const stripeID = fields[`${path}.${nameOfIDField}`]?.value
 
   // TODO: 'isTestKey' is always 'undefined' here, see '../index.ts'
   // const stripeEnv = isTestKey ? 'test/' : '';
   // For now, we'll just hardcode it to 'test/'
-  const stripeEnv = 'test/';
+  const stripeEnv = 'test/'
   const href = `https://dashboard.stripe.com/${stripeEnv}${stripeResourceType}/${stripeID}`
 
   return (
@@ -40,31 +42,24 @@ export const StripeLink: React.FC<UIField & {
         <span
           className="label"
           style={{
-            color: '#9A9A9A'
+            color: '#9A9A9A',
           }}
         >
           View in Stripe
         </span>
-        <CopyToClipboard
-          value={href as string}
-        />
+        <CopyToClipboard value={href as string} />
       </div>
       <div
         style={{
           overflow: 'hidden',
           textOverflow: 'ellipsis',
-          fontWeight: '600'
+          fontWeight: '600',
         }}
       >
-        <a
-          href={href as string}
-          target="_blank"
-          rel="noreferrer noopener"
-        >
+        <a href={href as string} target="_blank" rel="noreferrer noopener">
           {href}
         </a>
       </div>
     </div>
-  );
-};
-
+  )
+}
